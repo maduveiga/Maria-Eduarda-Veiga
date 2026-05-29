@@ -46,7 +46,7 @@ function Loader() {
       transition={{ duration: 0.8, ease: "easeInOut" }}
     >
       <div className="loader-content">
-        <span className="serif italic">M.E.V</span>
+        <img src={logoMadu} alt="Carregando..." className="loader-logo" />
         <div className="loader-bar" />
       </div>
     </motion.div>
@@ -427,6 +427,8 @@ function Manifesto() {
               <p className="manifesto__text">
                 Cada projeto é uma nova oportunidade de criar algo profundamente
                 cinematográfico, emocionalmente ressonante e culturalmente consciente.
+              </p>
+              <p className="manifesto__text">
                 Cada frame deve parecer uma memória que vale a pena guardar.
               </p>
             </FadeUp>

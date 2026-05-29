@@ -1034,10 +1034,15 @@ body {
   align-items: center;
   gap: 1.5rem;
 }
-.loader-content span {
-  font-size: 2.5rem;
-  color: var(--accent);
-  letter-spacing: 0.2em;
+.loader-logo {
+  height: 60px;
+  width: auto;
+  filter: brightness(1.2);
+  animation: pulse 2s infinite ease-in-out;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.8; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1); }
 }
 .loader-bar {
   width: 140px;
