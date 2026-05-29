@@ -1017,9 +1017,81 @@ body {
   .manifesto__signature { font-size: 1.15rem; }
 }
 
+/* ── Loader & Optimizations ────────────────────────────────────────────────── */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.loader-content span {
+  font-size: 2.5rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+}
+.loader-bar {
+  width: 140px;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+}
+.loader-bar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: var(--accent);
+  animation: loading 1.5s infinite ease-in-out;
+}
+@keyframes loading {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+
+/* ── Global Responsiveness Fixes ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .section-padding { padding: 80px 0; }
+  .container { padding: 0 40px; }
+  .hero__title-small { font-size: clamp(2.5rem, 8vw, 5rem) !important; }
+  .reels-title-main { font-size: 3.5rem; }
+}
+
+@media (max-width: 768px) {
+  .section-padding { padding: 60px 0; }
+  .container { padding: 0 25px; }
+  .hero__title-small { font-size: 2.4rem !important; }
+  .reels-title-main { font-size: 2.6rem; -webkit-box-reflect: none; }
+  .hero__video-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .hero__scroll { display: none; }
+  .manifesto__signature { font-size: 1.1rem; margin-bottom: 2rem; }
+  .contact__minimal-grid { gap: 2rem; }
+}
+
+@media (max-width: 480px) {
+  .hero__video-grid { grid-template-columns: 1fr !important; }
+  .navbar { padding: 15px 0; }
+  .logo-official { height: 32px; }
+  .logo-official-name { font-size: 0.75rem; }
+  .hero__actions { flex-direction: column; width: 100%; }
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+}
+
 @media (max-width: 640px) {
   .hero__video-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr); }
-  .reels-grid { grid-template-columns: 1fr; }
+  .reels-grid { grid-template-columns: 1fr !important; }
 }
 
 /* ── Logo Oficial ────────────────────────────────────────────────────────── */

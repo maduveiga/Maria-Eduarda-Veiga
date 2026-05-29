@@ -34,7 +34,23 @@ const CONTATOS = {
 function ScrollProgress() {
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
-  return <motion.div className="scroll-progress" style={{ scaleX }} />
+  return <motion.div className="scroll-progress" style={{ scaleX, zIndex: 9999 }} />
+}
+
+function Loader() {
+  return (
+    <motion.div 
+      className="page-loader"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+    >
+      <div className="loader-content">
+        <span className="serif italic">M.E.V</span>
+        <div className="loader-bar" />
+      </div>
+    </motion.div>
+  )
 }
 
 function Typewriter({ text, className = '', delay = 0, speed = 85 }) {
@@ -271,7 +287,8 @@ function Hero() {
               muted 
               loop 
               playsInline 
-              preload="auto"
+              preload="metadata"
+              loading="lazy"
               style={{ objectFit: 'cover' }}
               className={`hero__video-item item-${i+1}`} 
             />
@@ -680,21 +697,32 @@ function Rodape() {
 
 // ─── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.5,
       easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       wheelMultiplier: 0.85,
-      touchMultiplier: 1.5,
     })
     const raf = time => { lenis.raf(time); requestAnimationFrame(raf) }
     requestAnimationFrame(raf)
-    return () => lenis.destroy()
+    
+    // Simula carregamento de assets críticos
+    const timer = setTimeout(() => setLoading(false), 2200)
+    
+    return () => {
+      lenis.destroy()
+      clearTimeout(timer)
+    }
   }, [])
 
   return (
     <div className="app">
+      <AnimatePresence>
+        {loading && <Loader />}
+      </AnimatePresence>
       <ScrollProgress />
       <Navbar />
       <Hero />
